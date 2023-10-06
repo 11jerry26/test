@@ -8,24 +8,11 @@ import org.springframework.web.bind.annotation.*;
 
 @SuppressWarnings("all")
 @RestController
-@RequestMapping("/")
+@RequestMapping("/student")
 @CrossOrigin
 public class StudentController {
     @Autowired
         private StudentService studentService;
-
-//    接收login请求
-        @PostMapping("/login")
-        public String select(@RequestParam("account") String account,@RequestParam("password") String password){
-            int i = studentService.selectStudent(account,password);
-            if (i == 1){
-                return "登录成功";
-            }
-            if (i == 2){
-                return "密码错误";
-            }
-            else return "登录失败";
-        }
 
 //接收注册请求
         @PostMapping("/register")
