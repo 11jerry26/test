@@ -42,4 +42,9 @@ public class UserServiceImpl implements UserService {
     public User changeToUser(String account, String password, String name, String school){
         return new User(account,password,name,school);
     }
+
+    @Override
+    public User selectUserByAccount(String account){
+        return userMapper.selectUser(account);
+    }
 }
