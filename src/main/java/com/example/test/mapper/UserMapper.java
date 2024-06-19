@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @author 何建宇
- */    
+ */
 @Mapper
 public interface UserMapper {
         @Select("select * from user")
@@ -19,6 +19,18 @@ public interface UserMapper {
         @Select("SELECT * FROM user WHERE account = #{account}")
         public User selectUser(@Param("account") String account);
 
-        @Insert("insert into user values (#{name},#{account},#{password},#{school})")
+        @Insert("insert into user values (#{id},#{account},#{password},#{name},#{school},#{email},#{phone},#{role})")
         public int insertUser(User user);
+
+        @Select("select id from user where id is not null")
+        public List<String> selectUserId();
+
+        @Select("select email from user where email is not null")
+        public List<String> selectUserEmail();
+
+        @Select("select phone from user where phone is not null")
+        public List<String> selectUserPhone();
+
+//        @Insert("insert into user values (#{id},'1234567',#{password},#{name},#{school},null,#{account},#{role})")
+//        public int insertUserWithPhone(User user);
     }

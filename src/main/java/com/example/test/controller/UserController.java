@@ -19,16 +19,16 @@ public class UserController {
     private UserService userService;
 
     //接收学生注册请求
-    @PostMapping("/student")
-    public String addUser(@RequestParam("account") String account,@RequestParam("password") String password,
-                          @RequestParam("name") String name,@RequestParam("school") String school){
-        int i = userService.addUser(userService.changeToUser(account,password,name,school));
-        if (i > 0){
-            return "学生同步成功";
-        }else{
-            return "学生同步失败";
-        }
-    }
+//    @PostMapping("/student")
+//    public String addUser(@RequestParam("account") String account,@RequestParam("password") String password,
+//                          @RequestParam("name") String name,@RequestParam("school") String school){
+//        int i = userService.addUser(userService.changeToUser(account,password,name,school));
+//        if (i > 0){
+//            return "学生同步成功";
+//        }else{
+//            return "学生同步失败";
+//        }
+//    }
 
     //接收老师注册请求
     @PostMapping("/teacher")
