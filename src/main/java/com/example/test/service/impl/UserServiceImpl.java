@@ -20,18 +20,37 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int selectUser(String account, String password) {
-        if (userMapper.selectUser(account) != null){
-            User user = userMapper.selectUser(account);
-            if (password.equals(user.getPassword())){
+        if (userMapper.selectUserByAccount(account) == null && userMapper.selectUserByEmail(account) == null && userMapper.selectUserByPhone(account) == null) {
+            return 0;
+        } else {
+            User user = new User();
+            if (userMapper.selectUserByAccount(account) != null) {
+                user = userMapper.selectUserByAccount(account);
+            } else if (userMapper.selectUserByEmail(account) != null) {
+                user = userMapper.selectUserByEmail(account);
+            } else if(userMapper.selectUserByPhone(account) != null) {
+                user = userMapper.selectUserByPhone(account);
+            }
+            if (password.equals(user.getPassword())) {
                 return 1; //账号，密码正确
-            }
-            else {
-                return 2; //账号正确，密码错误
+            }else {
+                return 2; //账号不存在
             }
         }
-        else {
-            return 0; //账号不存在
-        }
+
+
+//        if (userMapper.selectUser(account) != null){
+//User user = userMapper.selectUser(account);
+////            if (password.equals(user.getPassword())){
+////                return 1; //账号，密码正确
+////            }
+////            else {
+////                return 2; //账号正确，密码错误
+////            }
+//        }
+//        else {
+//            return 0; //账号不存在
+//        }
     }
 
     @Override
@@ -66,6 +85,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User selectUserByAccount(String account){
-        return userMapper.selectUser(account);
+        return userMapper.selectUserByAccount(account);
     }
 }

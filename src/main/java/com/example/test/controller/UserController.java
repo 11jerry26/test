@@ -42,23 +42,23 @@ public class UserController {
     }
 
     //接收登录请求
-    @PostMapping("/login")
-    public TokenPassJson select(@RequestParam("account") String account, @RequestParam("password") String password){
-        int i = userService.selectUser(account,password);
-        TokenPassJson tokenPassJson = new TokenPassJson();
-        if (i == 1){
-            String token = TokenProccessor.createToken(account);
-            tokenPassJson.setSuccess(1);
-            tokenPassJson.setToken(token);
-            return tokenPassJson;
-        }
-        else if (i == 2){
-            tokenPassJson.setSuccess(2);
-            tokenPassJson.setToken(null);
-            return tokenPassJson;
-        }
-        tokenPassJson.setSuccess(0);
-        tokenPassJson.setToken(null);
-        return tokenPassJson;
+//    @PostMapping("/login")
+//    public TokenPassJson select(@RequestParam("account") String account, @RequestParam("password") String password){
+//        int i = userService.selectUser(account,password);
+//        TokenPassJson tokenPassJson = new TokenPassJson();
+//        if (i == 1){
+//            String token = TokenProccessor.createToken(account);
+//            tokenPassJson.setSuccess(1);
+//            tokenPassJson.setToken(token);
+//            return tokenPassJson;
+//        }
+//        else if (i == 2){
+//            tokenPassJson.setSuccess(2);
+//            tokenPassJson.setToken(null);
+//            return tokenPassJson;
+//        }
+//        tokenPassJson.setSuccess(0);
+//        tokenPassJson.setToken(null);
+//        return tokenPassJson;
     }
-}
+//}
