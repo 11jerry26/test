@@ -9,7 +9,8 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface CourseService {
 
-    public int insertCourse(String year,String term, String courseName, String teachObject, String responsiblePerson,
-                            String addCourseCode, String teachWay, int numberOfStudents);
+//    public int insertCourse(String year,String term, String courseName, String teachObject, String responsiblePerson,
+//                            String addCourseCode, String teachWay, int numberOfStudents);
     public Course selectCourseByCode(String addCourseCode);
+    public int createCourse(Course course,String userAccount);
 }

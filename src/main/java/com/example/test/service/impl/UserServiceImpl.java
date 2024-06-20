@@ -87,4 +87,17 @@ public class UserServiceImpl implements UserService {
     public User selectUserByAccount(String account){
         return userMapper.selectUserByAccount(account);
     }
+
+    @Override
+    public String selectUserAccountByLogin(String account) {
+        if (account.contains("@")) {
+            return userMapper.selectAccountByEmail(account);
+        } else {
+            if (account.contains("ktp")) {
+                return account;
+            } else {
+                return userMapper.selectAccountByPhone(account);
+            }
+        }
+    }
 }

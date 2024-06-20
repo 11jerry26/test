@@ -22,24 +22,24 @@ public class CourseController {
     private UserService userService;
     private static final String KEY = "huterox"; //加密秘钥
 
-    @PostMapping("/course")
-    public String addCourse(@RequestParam("year") String year,@RequestParam("term") String term,
-                            @RequestParam("courseName") String courseName, @RequestParam("teachObject") String teachObject,
-                            @RequestParam("token") String token, @RequestParam("addCourseCode") String addCourseCode,
-                            @RequestParam("teachWay") String teachWay, @RequestParam("numberOfStudents") int numberOfStudents){
-        System.out.println(year + term + courseName + teachObject + token + addCourseCode + teachWay + numberOfStudents);
-        Claims claims = null;
-        claims = Jwts.parser().setSigningKey(KEY).parseClaimsJws(token).getBody();
-        String userAccount = claims.getSubject();
-        User user = userService.selectUserByAccount(userAccount);
-        String responsiblePerson = user.getName();
-        int i = courseService.insertCourse(year,term,courseName,teachObject,responsiblePerson,addCourseCode,teachWay,numberOfStudents);
-        if (i > 0){
-            return "创建成功";
-        }
-        else {
-            return "创建失败";
-        }
-    }
+//    @PostMapping("/course")
+//    public String addCourse(@RequestParam("year") String year,@RequestParam("term") String term,
+//                            @RequestParam("courseName") String courseName, @RequestParam("teachObject") String teachObject,
+//                            @RequestParam("token") String token, @RequestParam("addCourseCode") String addCourseCode,
+//                            @RequestParam("teachWay") String teachWay, @RequestParam("numberOfStudents") int numberOfStudents){
+//        System.out.println(year + term + courseName + teachObject + token + addCourseCode + teachWay + numberOfStudents);
+//        Claims claims = null;
+//        claims = Jwts.parser().setSigningKey(KEY).parseClaimsJws(token).getBody();
+//        String userAccount = claims.getSubject();
+//        User user = userService.selectUserByAccount(userAccount);
+//        String responsiblePerson = user.getName();
+//        int i = courseService.insertCourse(year,term,courseName,teachObject,responsiblePerson,addCourseCode,teachWay,numberOfStudents);
+//        if (i > 0){
+//            return "创建成功";
+//        }
+//        else {
+//            return "创建失败";
+//        }
+//    }
 
 }

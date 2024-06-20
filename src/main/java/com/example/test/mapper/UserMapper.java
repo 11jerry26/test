@@ -43,6 +43,14 @@ public interface UserMapper {
         @Select("select phone from user where phone is not null")
         public List<String> selectUserPhone();
 
+        //根据登录邮箱查询账号{
+        @Select("SELECT account FROM user WHERE email = #{email}")
+        public String selectAccountByEmail(@Param("email") String email);
+
+        //根据登录邮箱查询账号{
+        @Select("SELECT account FROM user WHERE phone = #{phone}")
+        public String selectAccountByPhone(@Param("phone") String phone);
+
 //        @Insert("insert into user values (#{id},'1234567',#{password},#{name},#{school},null,#{account},#{role})")
 //        public int insertUserWithPhone(User user);
     }

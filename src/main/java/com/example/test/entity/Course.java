@@ -4,41 +4,37 @@ package com.example.test.entity;
  * @author 何建宇
  */
 public class Course {
-    private String year;
-    private String term;
+    private String code;
     private String name;
-    private String teachObject;
-    private String addCourseCode;
-    private String responsiblePerson;
-    private int numberOfStudents;
-    private String teachWay;
+    private String clazz;
+    private String year;
+    private String semester;
+    private int isTop;
+    private int count;
+    private int type;
+    private int codeStatus;
 
-    public Course(){}
+    public Course() {
+    }
 
-    public Course(String year,String term, String name, String teachObject, String responsiblePerson,String addCourseCode, String teachWay,int numberOfStudents) {
-        this.year = year;
-        this.term = term;
+    public Course(String code, String name, String clazz, String year, String semester, int isTop, int count, int type, int codeStatus) {
+        this.code = code;
         this.name = name;
-        this.teachObject = teachObject;
-        this.addCourseCode = addCourseCode;
-        this.responsiblePerson = responsiblePerson;
-        this.numberOfStudents = numberOfStudents;
-        this.teachWay = teachWay;
-    }
-
-    public String getYear(){
-        return year;
-    }
-
-    public void setYear(String year){
+        this.clazz = clazz;
         this.year = year;
-    }
-    public String getTerm() {
-        return term;
+        this.semester = semester;
+        this.isTop = isTop;
+        this.count = count;
+        this.type = type;
+        this.codeStatus = codeStatus;
     }
 
-    public void setTerm(String term) {
-        this.term = term;
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {
@@ -49,55 +45,74 @@ public class Course {
         this.name = name;
     }
 
-    public String getTeachObject() {
-        return teachObject;
+    public String getClazz() {
+        return clazz;
     }
 
-    public void setTeachObject(String teachObject) {
-        this.teachObject = teachObject;
+    public void setClazz(String clazz) {
+        this.clazz = clazz;
     }
 
-    public String getAddCourseCode() {
-        return addCourseCode;
+    public String getYear() {
+        return year;
     }
 
-    public void setAddCourseCode(String addCourseCode) {
-        this.addCourseCode = addCourseCode;
+    public void setYear(String year) {
+        this.year = year;
     }
 
-    public String getResponsiblePerson() {
-        return responsiblePerson;
+    public String getSemester() {
+        return semester;
     }
 
-    public void setResponsiblePerson(String responsiblePerson) {
-        this.responsiblePerson = responsiblePerson;
+    public void setSemester(String semester) {
+        this.semester = semester;
     }
 
-    public int getNumberOfStudents() {
-        return numberOfStudents;
+    public int getIsTop() {
+        return isTop;
     }
 
-    public void setNumberOfStudents(int numberOfStudents) {
-        this.numberOfStudents = numberOfStudents;
+    public void setIsTop(int isTop) {
+        this.isTop = isTop;
     }
-    public String getTeachWay(){
-        return teachWay;
+
+    public int getCount() {
+        return count;
     }
-    public void setTeachWay(String teachWay){
-        this.teachWay = teachWay;
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public int getCodeStatus() {
+        return codeStatus;
+    }
+
+    public void setCodeStatus(int codeStatus) {
+        this.codeStatus = codeStatus;
     }
 
     @Override
     public String toString() {
         return "Course{" +
-                "year='" + year + '\'' +
-                ", term='" + term + '\'' +
+                "code='" + code + '\'' +
                 ", name='" + name + '\'' +
-                ", teachObject='" + teachObject + '\'' +
-                ", addCourseCode='" + addCourseCode + '\'' +
-                ", responsiblePerson='" + responsiblePerson + '\'' +
-                ", numberOfStudents='" + numberOfStudents + '\'' +
-                ", teachWay='" + teachWay + '\'' +
+                ", clazz='" + clazz + '\'' +
+                ", year='" + year + '\'' +
+                ", semester='" + semester + '\'' +
+                ", isTop=" + isTop +
+                ", count=" + count +
+                ", type=" + type +
+                ", codeStatus=" + codeStatus +
                 '}';
     }
 }
