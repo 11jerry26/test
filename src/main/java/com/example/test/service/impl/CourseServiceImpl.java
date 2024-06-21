@@ -29,6 +29,7 @@ public class CourseServiceImpl implements CourseService {
         return courseMapper.selectCourse(addCourseCode);
     }
 
+    //创建课程
     @Override
     public int createCourse(Course course,String userAccount) {
         CourseIdGenerator courseIdGenerator = new CourseIdGenerator(0,0);
@@ -36,6 +37,22 @@ public class CourseServiceImpl implements CourseService {
         int i = courseMapper.createCourse(course);
         courseMapper.addTeacherAndCourse(userAccount,course.getCode());
         return i;
+    }
+
+    //根据加课码加入课程
+    @Override
+    public int joinCourse(String account,String code) {
+        Course course = selectCourseByCode(code);
+        if (course == null) {
+            return -2; //输入的加课码不存在
+        } else {
+            int i = courseMapper.SelectExistJoinCourse(account,code);
+            if (i > 0) {
+                return -1; //已添加该课程
+            } else {
+                return courseMapper.joinCourse(account,code);
+            }
+        }
     }
 }
 

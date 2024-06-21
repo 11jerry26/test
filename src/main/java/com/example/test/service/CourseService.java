@@ -13,4 +13,5 @@ public interface CourseService {
 //                            String addCourseCode, String teachWay, int numberOfStudents);
     public Course selectCourseByCode(String addCourseCode);
     public int createCourse(Course course,String userAccount);
+    public int joinCourse(String account,String code);
 }

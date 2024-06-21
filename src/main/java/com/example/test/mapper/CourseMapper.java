@@ -18,8 +18,8 @@ public interface CourseMapper {
     public List<Course> findCourse();
 
 //    根据加课码查找课程
-    @Select("SELECT * FROM course WHERE addCourseCode = #{addCourseCode}")
-    public Course selectCourse(@Param("addCourseCode") String addCourseCode);
+    @Select("SELECT * FROM course WHERE code = #{code}")
+    public Course selectCourse(@Param("code") String code);
 
 ////    创建课程
 //    @Insert("insert into course values " +
@@ -32,4 +32,12 @@ public interface CourseMapper {
 
     @Insert("INSERT INTO teacher_course (account, code) VALUES (#{userAccount}, #{code})")
     public int addTeacherAndCourse(@Param("userAccount") String userAccount, @Param("code") String code);
+
+    //加入课程
+    @Insert("INSERT INTO student_course (account, code) VALUES (#{account}, #{code})")
+    public int joinCourse(@Param("account") String account, @Param("code") String code);
+
+    //查询是否重复加入课程
+    @Select("SELECT COUNT(*) FROM student_course WHERE account = #{account} AND code = #{code}")
+    public  int SelectExistJoinCourse(@Param("account") String account, @Param("code") String code);
 }
