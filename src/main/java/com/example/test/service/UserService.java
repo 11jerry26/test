@@ -13,4 +13,5 @@ public interface UserService {
 //    public User changeToUser(String account, String password, String name, String school);
     public User selectUserByAccount(String account);
     public String selectUserAccountByLogin(String account);
+    public String selectUserNameByAccount(String account);
 }

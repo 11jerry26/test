@@ -51,6 +51,7 @@ public interface UserMapper {
         @Select("SELECT account FROM user WHERE phone = #{phone}")
         public String selectAccountByPhone(@Param("phone") String phone);
 
-//        @Insert("insert into user values (#{id},'1234567',#{password},#{name},#{school},null,#{account},#{role})")
-//        public int insertUserWithPhone(User user);
+        //根据登录账号查询用户姓名用于负责人显示
+        @Select("SELECT name FROM user WHERE account = #{account}")
+        public String selectUserNameByAccount(@Param("account") String account);
     }

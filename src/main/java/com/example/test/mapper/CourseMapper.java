@@ -21,11 +21,6 @@ public interface CourseMapper {
     @Select("SELECT * FROM course WHERE code = #{code}")
     public Course selectCourse(@Param("code") String code);
 
-////    创建课程
-//    @Insert("insert into course values " +
-//            "(#{year},#{term},#{name},#{teachObject},#{responsiblePerson},#{addCourseCode},#{teachWay},#{numberOfStudents})")
-//    public int insertCourse(Course course);
-
     //创建课程
     @Insert("insert into course values (#{code},#{name},#{clazz},#{year},#{semester},#{isTop},#{count},#{type},#{codeStatus})")
     public int createCourse(Course course);
@@ -40,4 +35,16 @@ public interface CourseMapper {
     //查询是否重复加入课程
     @Select("SELECT COUNT(*) FROM student_course WHERE account = #{account} AND code = #{code}")
     public  int SelectExistJoinCourse(@Param("account") String account, @Param("code") String code);
+
+    //根据用户账号查询课程码
+    @Select("SELECT code FROM teacher_course WHERE account = #{account} UNION SELECT code FROM student_course WHERE account = #{account}")
+    public List<String> selectCodeByAccount(@Param("account") String account);
+
+    //根据课程码查询用户账号
+    @Select("SELECT account FROM teacher_course WHERE code = #{code}")
+    public String selectAccountByCode(@Param("code") String code);
+
+    //根据课程码查询课程
+    @Select("SELECT * FROM course WHERE code = #{code}")
+    public Course selectCourseByCode(@Param("code") String code);
 }

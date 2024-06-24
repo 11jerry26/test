@@ -2,11 +2,16 @@ package com.example.test.service.impl;
 
 import com.example.test.entity.Course;
 import com.example.test.mapper.CourseMapper;
+import com.example.test.mapper.UserMapper;
 import com.example.test.service.CourseService;
 import com.example.test.utils.CourseIdGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -17,12 +22,8 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     CourseMapper courseMapper;
 
-//    @Override
-//    public int insertCourse(String year,String term,String courseName, String teachObject,String teacher,
-//                            String addCourseCode, String teachWay,int numberOfStudents) {
-//        Course course = new Course(year,term,courseName,teachObject,teacher,addCourseCode,teachWay,numberOfStudents);
-//        return courseMapper.insertCourse(course);
-//    }
+    @Autowired
+    UserMapper userMapper;
 
     @Override
     public Course selectCourseByCode(String addCourseCode) {
@@ -53,6 +54,25 @@ public class CourseServiceImpl implements CourseService {
                 return courseMapper.joinCourse(account,code);
             }
         }
+    }
+
+    //根据账号查询课程
+    public Map<String,Object> selectYourCourse(String account) {
+        Map<String,Object> responseMap = new HashMap<>();
+        List<Course> courses = new ArrayList<>();
+        List<String> codes = courseMapper.selectCodeByAccount(account);
+        List<String> names = new ArrayList<>();
+        for (String code : codes) {
+            Course course = courseMapper.selectCourseByCode(code);
+            courses.add(course);
+        }
+        for (Course cours : courses) {
+            String name = userMapper.selectUserNameByAccount(courseMapper.selectAccountByCode(cours.getCode()));
+            names.add(name);
+        }
+        responseMap.put("names",names);
+        responseMap.put("courses",courses);
+        return responseMap;
     }
 }
 
