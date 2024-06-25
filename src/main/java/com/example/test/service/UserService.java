@@ -14,5 +14,6 @@ public interface UserService {
     public User selectUserByAccount(String account);
     public String selectUserAccountByLogin(String account);
     public String selectUserNameByAccount(String account);
+    public int selectUserRoleByAccount(String account);
     public String selectUserAccountByName(String name);
 }

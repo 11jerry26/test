@@ -13,5 +13,5 @@ public interface CourseService {
     public int joinCourse(String account,String code);
     public Map<String,Object> selectYourTopCourse(String account);
     public Map<String,Object> selectYourCourse(String account);
-    public int updateTopping(Course course,String name);
+    public int updateTopping(Course course, String name);
 }

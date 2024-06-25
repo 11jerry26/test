@@ -9,7 +9,7 @@ public class Course {
     private String clazz;
     private String year;
     private String semester;
-    private boolean isTop;
+//    private int isTop;
     private int count;
     private int type;
     private int codeStatus;
@@ -17,13 +17,13 @@ public class Course {
     public Course() {
     }
 
-    public Course(String code, String name, String clazz, String year, String semester, boolean isTop, int count, int type, int codeStatus) {
+    public Course(String code, String name, String clazz, String year, String semester, int count, int type, int codeStatus) {
         this.code = code;
         this.name = name;
         this.clazz = clazz;
         this.year = year;
         this.semester = semester;
-        this.isTop = isTop;
+//        this.isTop = isTop;
         this.count = count;
         this.type = type;
         this.codeStatus = codeStatus;
@@ -69,13 +69,13 @@ public class Course {
         this.semester = semester;
     }
 
-    public boolean getIsTop() {
-        return isTop;
-    }
-
-    public void setIsTop(boolean isTop) {
-        this.isTop = isTop;
-    }
+//    public int getIsTop() {
+//        return isTop;
+//    }
+//
+//    public void setIsTop(int isTop) {
+//        this.isTop = isTop;
+//    }
 
     public int getCount() {
         return count;
@@ -109,7 +109,7 @@ public class Course {
                 ", clazz='" + clazz + '\'' +
                 ", year='" + year + '\'' +
                 ", semester='" + semester + '\'' +
-                ", isTop=" + isTop +
+//                ", isTop=" + isTop +
                 ", count=" + count +
                 ", type=" + type +
                 ", codeStatus=" + codeStatus +

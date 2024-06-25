@@ -1,10 +1,7 @@
 package com.example.test.mapper;
 
 import com.example.test.entity.Course;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -22,7 +19,7 @@ public interface CourseMapper {
     public Course selectCourse(@Param("code") String code);
 
     //创建课程
-    @Insert("insert into course values (#{code},#{name},#{clazz},#{year},#{semester},#{isTop},#{count},#{type},#{codeStatus})")
+    @Insert("insert into course values (#{code},#{name},#{clazz},#{year},#{semester},#{count},#{type},#{codeStatus})")
     public int createCourse(Course course);
 
     @Insert("INSERT INTO teacher_course (account, code) VALUES (#{userAccount}, #{code})")
@@ -35,6 +32,10 @@ public interface CourseMapper {
     //查询是否重复加入课程
     @Select("SELECT COUNT(*) FROM student_course WHERE account = #{account} AND code = #{code}")
     public  int SelectExistJoinCourse(@Param("account") String account, @Param("code") String code);
+
+    //根据账号和课程码查询是否为自创课程
+    @Select("SELECT COUNT(*) FROM teacher_course WHERE account = #{account} AND code = #{code}")
+    public int selectIsYours(@Param("account") String account, @Param("code") String code);
 
     //根据用户账号查询课程码
     @Select("SELECT code FROM teacher_course WHERE account = #{account} UNION SELECT code FROM student_course WHERE account = #{account}")
@@ -52,10 +53,14 @@ public interface CourseMapper {
     public Course selectCourseByCode(@Param("code") String code);
 
     //根据账号和课程码更改当前置顶状态
-    @Select("update teacher_course set isTop = #{isTop} where account = #{account} and code = #{code}")
-    public int updateTeaTopping(@Param("account") String account,@Param("code") String code,@Param("isTop") boolean isTop);
+    @Update("update teacher_course set isTop = #{isTop} where account = #{account} and code = #{code}")
+    public int updateTeaTopping(@Param("account") String account,@Param("code") String code,@Param("isTop") int isTop);
 
-    @Select("update student_course set isTop = #{isTop} where account = #{account} and code = #{code}")
-    public int updateStuTopping(@Param("account") String account,@Param("code") String code,@Param("isTop") boolean isTop);
+    @Update("update student_course set isTop = #{isTop} where account = #{account} and code = #{code}")
+    public int updateStuTopping(@Param("account") String account,@Param("code") String code,@Param("isTop") int isTop);
+
+    //根据账号和课程码查询置顶状态
+    @Select("SELECT isTop FROM teacher_course WHERE account = #{account} AND code = #{code} UNION SELECT isTop FROM student_course WHERE account = #{account} AND code = #{code}")
+    public int selectIsTopByAccountAndCode(@Param("account") String account, @Param("code") String code);
 
 }

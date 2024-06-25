@@ -29,6 +29,8 @@ public class JoinCourseController {
             return "输入的加课码不存在";
         } else if (i == -1) {
             return "已加入该课程";
+        } else if (i == 0) {
+            return "这是您创建的课程，无法加入";
         } else{
             return "加入成功";
         }
