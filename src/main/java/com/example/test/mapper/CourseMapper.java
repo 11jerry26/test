@@ -40,6 +40,9 @@ public interface CourseMapper {
     @Select("SELECT code FROM teacher_course WHERE account = #{account} UNION SELECT code FROM student_course WHERE account = #{account}")
     public List<String> selectCodeByAccount(@Param("account") String account);
 
+    @Select("SELECT code FROM teacher_course WHERE account = #{account} AND isTop = 1 UNION SELECT code FROM student_course WHERE account = #{account} AND isTop = 1")
+    public List<String> selectTopCodeByAccount(@Param("account") String account);
+
     //根据课程码查询用户账号
     @Select("SELECT account FROM teacher_course WHERE code = #{code}")
     public String selectAccountByCode(@Param("code") String code);
@@ -47,4 +50,12 @@ public interface CourseMapper {
     //根据课程码查询课程
     @Select("SELECT * FROM course WHERE code = #{code}")
     public Course selectCourseByCode(@Param("code") String code);
+
+    //根据账号和课程码更改当前置顶状态
+    @Select("update teacher_course set isTop = #{isTop} where account = #{account} and code = #{code}")
+    public int updateTeaTopping(@Param("account") String account,@Param("code") String code,@Param("isTop") boolean isTop);
+
+    @Select("update student_course set isTop = #{isTop} where account = #{account} and code = #{code}")
+    public int updateStuTopping(@Param("account") String account,@Param("code") String code,@Param("isTop") boolean isTop);
+
 }

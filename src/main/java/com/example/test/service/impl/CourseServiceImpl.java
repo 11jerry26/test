@@ -57,6 +57,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     //根据账号查询课程
+    @Override
     public Map<String,Object> selectYourCourse(String account) {
         Map<String,Object> responseMap = new HashMap<>();
         List<Course> courses = new ArrayList<>();
@@ -73,6 +74,40 @@ public class CourseServiceImpl implements CourseService {
         responseMap.put("names",names);
         responseMap.put("courses",courses);
         return responseMap;
+    }
+
+    @Override
+    public Map<String,Object> selectYourTopCourse(String account) {
+        Map<String,Object> responseMap = new HashMap<>();
+        List<Course> courses = new ArrayList<>();
+        List<String> codes = courseMapper.selectTopCodeByAccount(account);
+        List<String> names = new ArrayList<>();
+        for (String code : codes) {
+            Course course = courseMapper.selectCourseByCode(code);
+            courses.add(course);
+        }
+        for (Course cours : courses) {
+            String name = userMapper.selectUserNameByAccount(courseMapper.selectAccountByCode(cours.getCode()));
+            names.add(name);
+        }
+        responseMap.put("names",names);
+        responseMap.put("courses",courses);
+        return responseMap;
+    }
+
+    //更改课程置顶状态
+    @Override
+    public int updateTopping(Course course,String name) {
+        //得到用户的账号
+        String account = userMapper.selectUserAccountByName(name);
+        int role = userMapper.selectUserRoleByAccount(account);
+        String code = course.getCode();
+        boolean isTop = !course.getIsTop();
+        if (role == 1) {
+            return courseMapper.updateTeaTopping(account,code,isTop);
+        } else {
+            return courseMapper.updateStuTopping(account,code,isTop);
+        }
     }
 }
 

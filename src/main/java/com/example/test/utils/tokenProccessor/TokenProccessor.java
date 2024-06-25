@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class TokenProccessor {
     private static UserService userService;
-    private static final long EXPIRE_TIME=60*60*1000*24*7; //过期时间7天
+    private static final long EXPIRE_TIME= 60 * 60 * 1000 * 24; //过期时间1天
     private static final String KEY = "huterox"; //加密秘钥
 
     public static String createToken(String userAccount){

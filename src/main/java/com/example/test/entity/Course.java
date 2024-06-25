@@ -9,7 +9,7 @@ public class Course {
     private String clazz;
     private String year;
     private String semester;
-    private int isTop;
+    private boolean isTop;
     private int count;
     private int type;
     private int codeStatus;
@@ -17,7 +17,7 @@ public class Course {
     public Course() {
     }
 
-    public Course(String code, String name, String clazz, String year, String semester, int isTop, int count, int type, int codeStatus) {
+    public Course(String code, String name, String clazz, String year, String semester, boolean isTop, int count, int type, int codeStatus) {
         this.code = code;
         this.name = name;
         this.clazz = clazz;
@@ -69,11 +69,11 @@ public class Course {
         this.semester = semester;
     }
 
-    public int getIsTop() {
+    public boolean getIsTop() {
         return isTop;
     }
 
-    public void setIsTop(int isTop) {
+    public void setIsTop(boolean isTop) {
         this.isTop = isTop;
     }
 

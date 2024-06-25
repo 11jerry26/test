@@ -54,4 +54,12 @@ public interface UserMapper {
         //根据登录账号查询用户姓名用于负责人显示
         @Select("SELECT name FROM user WHERE account = #{account}")
         public String selectUserNameByAccount(@Param("account") String account);
+
+        //根据用户姓名查询用户账号
+        @Select("SELECT account FROM user WHERE name = #{name}")
+        public String selectUserAccountByName(@Param("name") String name);
+
+        //根据用户账号查询用户角色
+        @Select("SELECT role FROM user WHERE account = #{account}")
+        public int selectUserRoleByAccount(@Param("account") String account);
     }

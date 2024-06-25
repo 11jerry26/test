@@ -105,4 +105,9 @@ public class UserServiceImpl implements UserService {
     public String selectUserNameByAccount(String account) {
         return userMapper.selectUserNameByAccount(account);
     }
+
+    @Override
+    public String selectUserAccountByName(String name) {
+        return userMapper.selectUserAccountByName(name);
+    }
 }

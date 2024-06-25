@@ -20,6 +20,16 @@ public class SelectCourseController {
     private UserService userService;
     private static final String KEY = "huterox"; //加密秘钥
 
+    @PostMapping("/selectTop")
+    public Map<String,Object> selectToppedCourseInfo(@RequestParam("token") String token) {
+        //得到登录用户的账号
+        Claims claims = null;
+        claims = Jwts.parser().setSigningKey(KEY).parseClaimsJws(token).getBody();
+        String userLoginAccount = claims.getSubject();
+        String userAccount = userService.selectUserAccountByLogin(userLoginAccount);
+        return courseService.selectYourTopCourse(userAccount);
+    }
+
     @PostMapping("/select")
     public Map<String,Object> selectCourseInfo(@RequestParam("token") String token) {
         //得到登录用户的账号
@@ -30,3 +40,4 @@ public class SelectCourseController {
         return courseService.selectYourCourse(userAccount);
     }
 }
+
