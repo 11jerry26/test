@@ -46,5 +46,10 @@ public class HomeWorkController {
     public String updateHomework(@RequestBody Homework homework) {
         return homeworkService.updateHomework(homework);
     }
+
+    @PostMapping("/selectStuHomeworkCounts")
+    public int selectStuHomeworkById(@RequestParam("homeworkId") String id) {
+        return homeworkService.selectStuHomeworkById(id);
+    }
 }
 

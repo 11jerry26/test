@@ -48,4 +48,7 @@ public interface HomeworkMapper {
                               @Param("ddl") String ddl, @Param("file") String file,
                               @Param("isRelease") boolean isRelease,
                               @Param("description") String description);
+
+    @Select("select count(*) from student_homework where id = #{id}")
+    public int selectStuHomeworkById(@Param("id") String id);
 }

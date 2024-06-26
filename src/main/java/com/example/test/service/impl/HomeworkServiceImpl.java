@@ -109,4 +109,9 @@ public class HomeworkServiceImpl implements HomeworkService {
             return "修改失败";
         }
     }
+
+    @Override
+    public int selectStuHomeworkById(String id) {
+        return homeworkMapper.selectStuHomeworkById(id);
+    }
 }
