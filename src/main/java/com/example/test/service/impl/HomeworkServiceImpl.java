@@ -11,6 +11,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import net.sf.jsqlparser.statement.select.Offset;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -95,6 +96,17 @@ public class HomeworkServiceImpl implements HomeworkService {
             return "删除成功";
         } else {
             return "删除失败";
+        }
+    }
+
+    @Override
+    public String updateHomework(Homework homework) {
+        int i = homeworkMapper.updateHomework(homework.getId(),homework.getTitle(),homework.getReleaseTime(),
+                homework.getDdl(),homework.getFile(),homework.isRelease(),homework.getDescription());
+        if (i > 0) {
+            return "修改成功";
+        } else {
+            return "修改失败";
         }
     }
 }

@@ -41,4 +41,11 @@ public interface HomeworkMapper {
 
     @Delete("delete from homework where id = #{id}")
     public int deleteHomeworkById(@Param("id") String id);
+
+    @Update("update homework set title = #{title},releaseTime = #{releaseTime},ddl = #{ddl},file = #{file}," +
+            "isRelease = #{isRelease},description = #{description} where id = #{id}")
+    public int updateHomework(@Param("id") String id, @Param("title") String title, @Param("releaseTime") String releaseTime,
+                              @Param("ddl") String ddl, @Param("file") String file,
+                              @Param("isRelease") boolean isRelease,
+                              @Param("description") String description);
 }

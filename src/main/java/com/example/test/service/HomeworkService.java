@@ -11,4 +11,5 @@ public interface HomeworkService {
     public List<Homework> getHomeworkListByCode(String code);
     public List<Integer> getHomeworkCounts(String id,String code);
     public String deleteHomeworkById(String id);
+    public String updateHomework(Homework homework);
 }

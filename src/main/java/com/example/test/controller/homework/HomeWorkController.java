@@ -41,5 +41,10 @@ public class HomeWorkController {
     public String deleteHomeworkById(@RequestParam("id") String id) {
         return homeworkService.deleteHomeworkById(id);
     }
+
+    @PostMapping("/update")
+    public String updateHomework(@RequestBody Homework homework) {
+        return homeworkService.updateHomework(homework);
+    }
 }
 
