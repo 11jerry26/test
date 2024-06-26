@@ -85,4 +85,16 @@ public class HomeworkServiceImpl implements HomeworkService {
 
         return counts;
     }
+
+    @Override
+    public String deleteHomeworkById(String id) {
+        int i = homeworkMapper.deleteTeaHomeworkById(id);
+        int k = homeworkMapper.deleteHomeworkById(id);
+        int j = homeworkMapper.deleteStuHomeworkById(id);
+        if (i > 0 && k > 0) {
+            return "删除成功";
+        } else {
+            return "删除失败";
+        }
+    }
 }

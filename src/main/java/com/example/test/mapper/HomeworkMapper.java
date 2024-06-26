@@ -1,11 +1,7 @@
 package com.example.test.mapper;
 
-import com.example.test.entity.Course;
 import com.example.test.entity.Homework;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -36,7 +32,13 @@ public interface HomeworkMapper {
     @Select("select count(*) from teacher_homework where id = #{id} and score != null")
     public int selectMarkingNum(@Param("id") String id);
 
-    //根据课程码查询有多少人未批完
+    //根据作业编号删除作业
+    @Delete("delete from teacher_homework where id = #{id}")
+    public int deleteTeaHomeworkById(@Param("id") String id);
 
-    public int selectUnMarkingNum(@Param("id") String id);
+    @Delete("delete from student_homework where id = #{id}")
+    public int deleteStuHomeworkById(@Param("id") String id);
+
+    @Delete("delete from homework where id = #{id}")
+    public int deleteHomeworkById(@Param("id") String id);
 }

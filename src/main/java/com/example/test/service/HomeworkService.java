@@ -10,4 +10,5 @@ public interface HomeworkService {
     public List<String> getHomeworkIdsByCode(String code);
     public List<Homework> getHomeworkListByCode(String code);
     public List<Integer> getHomeworkCounts(String id,String code);
+    public String deleteHomeworkById(String id);
 }
