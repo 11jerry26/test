@@ -2,8 +2,10 @@ package com.example.test.service.impl;
 
 import com.example.test.entity.Course;
 import com.example.test.mapper.CourseMapper;
+import com.example.test.mapper.HomeworkMapper;
 import com.example.test.mapper.UserMapper;
 import com.example.test.service.CourseService;
+import com.example.test.service.HomeworkService;
 import com.example.test.utils.CourseIdGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +23,8 @@ import java.util.Map;
 public class CourseServiceImpl implements CourseService {
     @Autowired
     CourseMapper courseMapper;
-
+    @Autowired
+    HomeworkMapper homeworkMapper;
     @Autowired
     UserMapper userMapper;
 
@@ -53,9 +56,22 @@ public class CourseServiceImpl implements CourseService {
             if (i > 0) {
                 return -1; //已添加该课程
             } else {
+                List<String> homeworkIds = homeworkMapper.getHomeworkIdsByCode(code);
+                if (!homeworkIds.isEmpty()){
+                    String teacherAccount = courseMapper.selectAccountByCode(code);
+                    for (String homeworkId : homeworkIds) {
+                        homeworkMapper.teacherCreateHomework(teacherAccount, homeworkId, account);
+                    }
+                }
+                int change = courseMapper.addCourseCount(code);
                 return courseMapper.joinCourse(account,code);
             }
         }
+    }
+
+    @Override
+    public int addCourseCount(String code) {
+        return courseMapper.addCourseCount(code);
     }
 
     //根据账号查询课程
@@ -130,6 +146,15 @@ public class CourseServiceImpl implements CourseService {
         } else {
             return courseMapper.updateStuTopping(account,code,isTop);
         }
+    }
+
+    //查询课程下的所有学生
+    public List<String> selectStuAccountByCode(String code) {
+        return courseMapper.selectStuAccountByCode(code);
+    }
+
+    public int selectCountByCode(String code) {
+        return courseMapper.selectCountByCode(code);
     }
 }
 

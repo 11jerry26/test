@@ -29,6 +29,10 @@ public interface CourseMapper {
     @Insert("INSERT INTO student_course (account, code) VALUES (#{account}, #{code})")
     public int joinCourse(@Param("account") String account, @Param("code") String code);
 
+    //加入课程后课程人数加一
+    @Update("update course set count = count + 1 where code = #{code}")
+    public int addCourseCount(@Param("code") String code);
+
     //查询是否重复加入课程
     @Select("SELECT COUNT(*) FROM student_course WHERE account = #{account} AND code = #{code}")
     public  int SelectExistJoinCourse(@Param("account") String account, @Param("code") String code);
@@ -44,9 +48,13 @@ public interface CourseMapper {
     @Select("SELECT code FROM teacher_course WHERE account = #{account} AND isTop = 1 UNION SELECT code FROM student_course WHERE account = #{account} AND isTop = 1")
     public List<String> selectTopCodeByAccount(@Param("account") String account);
 
-    //根据课程码查询用户账号
+    //根据课程码查询老师账号
     @Select("SELECT account FROM teacher_course WHERE code = #{code}")
     public String selectAccountByCode(@Param("code") String code);
+
+    //根据课程码查询学生账号
+    @Select("SELECT account FROM student_course WHERE code = #{code}")
+    public List<String> selectStuAccountByCode(@Param("code") String code);
 
     //根据课程码查询课程
     @Select("SELECT * FROM course WHERE code = #{code}")
@@ -63,4 +71,7 @@ public interface CourseMapper {
     @Select("SELECT isTop FROM teacher_course WHERE account = #{account} AND code = #{code} UNION SELECT isTop FROM student_course WHERE account = #{account} AND code = #{code}")
     public int selectIsTopByAccountAndCode(@Param("account") String account, @Param("code") String code);
 
+    //根据课程码查询课程(作业)总人数
+    @Select("select count from course where code = #{code}")
+    public int selectCountByCode(@Param("code") String code);
 }
