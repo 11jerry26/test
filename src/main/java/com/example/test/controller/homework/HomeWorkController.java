@@ -48,8 +48,13 @@ public class HomeWorkController {
     }
 
     @PostMapping("/selectStuHomeworkCounts")
-    public int selectStuHomeworkById(@RequestParam("homeworkId") String id) {
-        return homeworkService.selectStuHomeworkById(id);
+    public int selectStuHomeworkById(@RequestParam("homeworkId") String id,@RequestParam("token") String token) {
+        return homeworkService.selectStuHomeworkById(id,token);
+    }
+
+    @PostMapping("/selectStuHomeworkScore")
+    public String selectStuHomeworkScore(@RequestParam("homeworkId") String id,@RequestParam("token") String token) {
+        return homeworkService.selectStuHomeworkScore(id,token);
     }
 }
 

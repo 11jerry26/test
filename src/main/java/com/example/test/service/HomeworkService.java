@@ -12,5 +12,6 @@ public interface HomeworkService {
     public List<Integer> getHomeworkCounts(String id,String code);
     public String deleteHomeworkById(String id);
     public String updateHomework(Homework homework);
-    public int selectStuHomeworkById(String id);
+    public int selectStuHomeworkById(String id,String token);
+    public String selectStuHomeworkScore(String id,String token);
 }

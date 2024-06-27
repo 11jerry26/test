@@ -29,7 +29,7 @@ public interface HomeworkMapper {
     public int selectSubmitNum(@Param("id") String id);
 
     //根据作业编号查询有多少人已批完
-    @Select("select count(*) from teacher_homework where id = #{id} and score != null")
+    @Select("select count(*) from teacher_homework where id = #{id} and score is not null")
     public int selectMarkingNum(@Param("id") String id);
 
     //根据作业编号删除作业
@@ -49,6 +49,9 @@ public interface HomeworkMapper {
                               @Param("isRelease") boolean isRelease,
                               @Param("description") String description);
 
-    @Select("select count(*) from student_homework where id = #{id}")
-    public int selectStuHomeworkById(@Param("id") String id);
+    @Select("select count(*) from student_homework where id = #{id} and account = #{userAccount}")
+    public int selectStuHomeworkById(@Param("id") String id, @Param("userAccount") String account);
+
+    @Select("select score from teacher_homework where id = #{id} and stuAccount = #{userAccount}")
+    public String selectStuHomeworkScore(@Param("id") String id,@Param("userAccount") String account);
 }

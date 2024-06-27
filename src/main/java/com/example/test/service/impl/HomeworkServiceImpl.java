@@ -90,8 +90,8 @@ public class HomeworkServiceImpl implements HomeworkService {
     @Override
     public String deleteHomeworkById(String id) {
         int i = homeworkMapper.deleteTeaHomeworkById(id);
-        int k = homeworkMapper.deleteHomeworkById(id);
         int j = homeworkMapper.deleteStuHomeworkById(id);
+        int k = homeworkMapper.deleteHomeworkById(id);
         if (i > 0 && k > 0) {
             return "删除成功";
         } else {
@@ -111,7 +111,20 @@ public class HomeworkServiceImpl implements HomeworkService {
     }
 
     @Override
-    public int selectStuHomeworkById(String id) {
-        return homeworkMapper.selectStuHomeworkById(id);
+    public int selectStuHomeworkById(String id,String token) {
+        Claims claims = null;
+        claims = Jwts.parser().setSigningKey(KEY).parseClaimsJws(token).getBody();
+        String userLoginAccount = claims.getSubject();
+        String userAccount = userService.selectUserAccountByLogin(userLoginAccount);
+        return homeworkMapper.selectStuHomeworkById(id,userAccount);
+    }
+
+    @Override
+    public String selectStuHomeworkScore(String id,String token) {
+        Claims claims = null;
+        claims = Jwts.parser().setSigningKey(KEY).parseClaimsJws(token).getBody();
+        String userLoginAccount = claims.getSubject();
+        String userAccount = userService.selectUserAccountByLogin(userLoginAccount);
+        return homeworkMapper.selectStuHomeworkScore(id,userAccount);
     }
 }
