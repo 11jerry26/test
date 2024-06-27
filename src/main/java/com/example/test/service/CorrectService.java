@@ -9,8 +9,8 @@ import java.util.List;
 public interface CorrectService {
     public int createStuHomework(String token, String stuHomeworkJson);
     public int updateStuHomework(String token, String stuHomeworkJson);
-//    public List<Homework> getHomeworkListByCode(String code);
     public StudentHomework getStuHomework(String id, String token);
     public String getScore(String id, String token);
     public List<CorrectHomework> getStuHomeworkList(String id, String token);
+    public int updateScore(String token, String id, String stuAccount, String score);
 }

@@ -1,6 +1,7 @@
 package com.example.test.entity;
 
 public class CorrectHomework {
+    private String account;
     private String name;
     private String content;
     private String message;
@@ -10,12 +11,21 @@ public class CorrectHomework {
     public CorrectHomework() {
     }
 
-    public CorrectHomework(String name, String content, String message, String score, String comment) {
+    public CorrectHomework(String account, String name, String content, String message, String score, String comment) {
+        this.account = account;
         this.name = name;
         this.content = content;
         this.message = message;
         this.score = score;
         this.comment = comment;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
     }
 
     public String getName() {

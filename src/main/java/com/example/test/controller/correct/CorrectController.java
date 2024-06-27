@@ -56,8 +56,20 @@ public class CorrectController {
 
     @PostMapping("/getStuHomeworkList")
     public List<CorrectHomework> getStuHomeworkList(@RequestParam("id") String id, @RequestParam("userToken") String token) {
-        System.out.println("chachacha");
         return correctService.getStuHomeworkList(id, token);
+    }
+
+    @PostMapping("/updateScore")
+    public String updateScore(@RequestParam("userToken") String token,
+                              @RequestParam("id") String id,
+                              @RequestParam("stuAccount") String stuAccount,
+                              @RequestParam("score") String score){
+        int i = correctService.updateScore(token, id, stuAccount, score);
+        if (i > 0) {
+            return "打分成功";
+        } else{
+            return "打分失败";
+        }
     }
 
 //    @PostMapping("/select")

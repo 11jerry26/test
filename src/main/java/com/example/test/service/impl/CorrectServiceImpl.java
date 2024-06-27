@@ -70,12 +70,7 @@ public class CorrectServiceImpl implements CorrectService {
             throw new RuntimeException(e);
         }
     }
-//
-//    @Override
-//    public List<Homework> getHomeworkListByCode(String code) {
-//        return homeworkMapper.getHomeworkListByCode(code);
-//    }
-//
+
     @Override
     public StudentHomework getStuHomework(String id, String token) {
         Claims claims = null;
@@ -104,5 +99,16 @@ public class CorrectServiceImpl implements CorrectService {
         String userAccount = userService.selectUserAccountByLogin(userLoginAccount);
 
         return correctMapper.getStuHomeworkList(id, userAccount);
+    }
+
+    @Override
+    public int updateScore(String token, String id, String stuAccount, String score) {
+        Claims claims = null;
+        StudentHomework studentHomework = null;
+        claims = Jwts.parser().setSigningKey(KEY).parseClaimsJws(token).getBody();
+        String userLoginAccount = claims.getSubject();
+        String userAccount = userService.selectUserAccountByLogin(userLoginAccount);
+
+        return correctMapper.updateScore(userAccount, id, stuAccount, score);
     }
 }
