@@ -74,4 +74,23 @@ public interface CourseMapper {
     //根据课程码查询课程(作业)总人数
     @Select("select count from course where code = #{code}")
     public int selectCountByCode(@Param("code") String code);
+
+    //根据课程码删除老师课程
+    @Delete("delete from teacher_course where code = #{code}")
+    public int deleteTeaCourse(@Param("code") String code);
+
+    //根据课程码删除学生课程
+    @Delete("delete from student_course where code = #{code}")
+    public int deleteStuCourse(@Param("code") String code);
+
+    //根据课程码删除课程
+    @Delete("delete from course where code = #{code}")
+    public int deleteCourse(@Param("code") String code);
+
+    //根据账号和课程码删除学生课程
+    @Delete("delete from student_course where account = #{account} and code = #{code}")
+    public int deleteExitCourse(@Param("account") String account,@Param("code") String code);
+
+    @Update("update course set count = count - 1 where code = #{code}")
+    public int updateCount(@Param("code") String code);
 }

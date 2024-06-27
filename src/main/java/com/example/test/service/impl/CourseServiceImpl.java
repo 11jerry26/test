@@ -6,7 +6,12 @@ import com.example.test.mapper.HomeworkMapper;
 import com.example.test.mapper.UserMapper;
 import com.example.test.service.CourseService;
 import com.example.test.service.HomeworkService;
+import com.example.test.service.UserService;
 import com.example.test.utils.CourseIdGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +26,13 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     CourseMapper courseMapper;
     @Autowired
+    UserService userService;
+    @Autowired
     HomeworkMapper homeworkMapper;
     @Autowired
     UserMapper userMapper;
+
+    private static final String KEY = "huterox"; //加密秘钥
 
     @Override
     public Course selectCourseByCode(String addCourseCode) {
@@ -161,6 +170,53 @@ public class CourseServiceImpl implements CourseService {
             return 1;
         } else {
             return 0;
+        }
+    }
+
+    @Override
+    public String deleteCourse(Course course) {
+        String code = course.getCode();
+        List<String> homeworkIds = homeworkMapper.getHomeworkIdsByCode(code);
+        int i = courseMapper.deleteTeaCourse(code);
+        int k = courseMapper.deleteStuCourse(code);
+        for (String id : homeworkIds) {
+            int m = homeworkMapper.deleteTeaHomeworkById(id);
+            int n = homeworkMapper.deleteStuHomeworkById(id);
+            int x = homeworkMapper.deleteHomeworkById(id);
+        }
+        int j = courseMapper.deleteCourse(code);
+        if (j > 0) {
+            return "删除成功";
+        } else {
+            return "删除失败";
+        }
+    }
+
+    @Override
+    public String deleteCourseStu(String courseJson,String token) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Course course = null;
+        try {
+            course = objectMapper.readValue(courseJson, Course.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        String code = course.getCode();
+        Claims claims = null;
+        claims = Jwts.parser().setSigningKey(KEY).parseClaimsJws(token).getBody();
+        String userLoginAccount = claims.getSubject();
+        String userAccount = userService.selectUserAccountByLogin(userLoginAccount);
+        List<String> homeworkIds = homeworkMapper.getHomeworkIdsByCode(code);
+        int i = courseMapper.deleteExitCourse(userAccount,code);
+        for (String id : homeworkIds) {
+            int j = homeworkMapper.deleteExitStuCourse(userAccount,id);
+            int k = homeworkMapper.deleteExitTeaCourse(userAccount,id);
+        }
+        int m = courseMapper.updateCount(code);
+        if (i > 0) {
+            return "退课成功";
+        } else {
+             return "退课失败";
         }
     }
 }

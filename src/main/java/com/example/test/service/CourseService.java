@@ -21,4 +21,6 @@ public interface CourseService {
     public List<String> selectStuAccountByCode(String code);
     public int selectCountByCode(String code);
     public int selectYourRole(String account,String code);
+    public String deleteCourse(Course course);
+    public String deleteCourseStu(String courseJson,String token);
 }

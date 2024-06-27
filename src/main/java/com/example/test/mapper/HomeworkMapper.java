@@ -54,4 +54,12 @@ public interface HomeworkMapper {
 
     @Select("select score from teacher_homework where id = #{id} and stuAccount = #{userAccount}")
     public String selectStuHomeworkScore(@Param("id") String id,@Param("userAccount") String account);
+
+    //根据账号和作业编号删除学生作业
+    @Delete("delete from student_homework where account = #{account} and id = #{id}")
+    public int deleteExitStuCourse(@Param("account") String account, @Param("id") String id);
+
+    //根据学生账号和作业编号删除老师作业
+    @Delete("delete from teacher_homework where stuAccount = #{account} and id = #{id}")
+    public int deleteExitTeaCourse(@Param("account") String account, @Param("id") String id);
 }
