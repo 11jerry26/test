@@ -20,4 +20,5 @@ public interface CourseService {
     public int updateTopping(Course course, String name);
     public List<String> selectStuAccountByCode(String code);
     public int selectCountByCode(String code);
+    public int selectYourRole(String account,String code);
 }

@@ -1,6 +1,7 @@
 package com.example.test.controller.course;
 
 
+import com.example.test.entity.Course;
 import com.example.test.service.CourseService;
 import com.example.test.service.UserService;
 import io.jsonwebtoken.Claims;
@@ -38,6 +39,21 @@ public class SelectCourseController {
         String userLoginAccount = claims.getSubject();
         String userAccount = userService.selectUserAccountByLogin(userLoginAccount);
         return courseService.selectYourCourse(userAccount);
+    }
+
+    @PostMapping("/selectYourRole")
+    public int selectYourRole(@RequestParam("token") String token,@RequestParam("code") String code) {
+        Claims claims = null;
+        claims = Jwts.parser().setSigningKey(KEY).parseClaimsJws(token).getBody();
+        String userLoginAccount = claims.getSubject();
+        String userAccount = userService.selectUserAccountByLogin(userLoginAccount);
+
+        return courseService.selectYourRole(userAccount,code);
+    }
+
+    @PostMapping("/selectCourse")
+    public Course selectYourCourse(@RequestParam("code") String code) {
+        return courseService.selectCourseByCode(code);
     }
 }
 
